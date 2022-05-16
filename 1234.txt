@@ -1,0 +1,56 @@
+列出磁碟區 新增磁碟區 的資料夾 PATH
+磁碟區序號為 8453-889B
+D:.
+│  changecheckin.php//更新報到
+│  checkin.php//報到頁面
+│  conn_mysql.php//連接資料庫的檔案
+│  elements.php//顯示資料庫填答內容
+│  elementssent.php//登記老師打分或評語
+│  export.php//輸出資料庫內資料
+│  index.php//首頁
+│  logincheck.php//驗證帳號密碼
+│  loginpage.php//登入頁面
+│  logout.php//登出
+
+│  statuscheck_311.php//改變區域的後端判定
+│  statuscheck_506.php
+│  statuscheck_5F.php
+│  statuscheck_5F_room.php
+
+│  status_302.php//不同區域的顯示頁面
+│  status_311.php
+│  status_506.php
+│  status_5F.php
+│  status_5F_room.php
+
+│  survey.php//考生答題前端
+│  surveySet.php//考生答題送出
+│  
+├─assets
+│  ├─css
+│  │      font-awesome.min.css
+│  │      main.css
+│  │      
+│  ├─fonts
+│  │      fontawesome-webfont.eot
+│  │      fontawesome-webfont.svg
+│  │      fontawesome-webfont.ttf
+│  │      fontawesome-webfont.woff
+│  │      fontawesome-webfont.woff2
+│  │      FontAwesome.otf
+│  │      
+│  └─js
+│          jquery.min.js
+│          jquery.scrolly.min.js
+│          main.js
+│          skel.min.js
+│          util.js
+│          
+└─images
+        banner.jpg
+        pic01.jpg
+        pic02.jpg
+        pic03.jpg
+        pic04.jpg
+        pic05.jpg
+        
