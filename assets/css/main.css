@@ -2127,7 +2127,7 @@
 			}
 
 		.image.round img {
-			border-radius: 100%;
+			border-radius: 25%;
 		}
 
 		.image.main {
@@ -2356,13 +2356,14 @@
 		}
 
 		table.alt {
-			border-collapse: separate;
+			border-collapse: separate;;
 		}
 
 			table.alt tbody tr td {
 				border: solid 2px #000000;
 				border-left-width: 0;
 				border-top-width: 0;
+
 			}
 
 				table.alt tbody tr td:first-child {
@@ -3208,4 +3209,43 @@
 					padding: 2em 0;
 				}
 
+		}
+
+		* {
+			box-sizing: border-box;
+		}
+
+
+		.zoom {
+			padding: 20px;
+			transition: transform .2s;
+			width: 200px;
+			height: 100px;
+			margin: 0 auto;
+		}
+
+		.zoom:hover {
+			width: 30%;
+			-ms-transform: scale(1); /* IE 9 */
+			-webkit-transform: scale(1); /* Safari 3-8 */
+			transform: scale(1);
+		}
+
+
+		@font-face{
+			font-family: sevenSegment;
+			src: url(SevenSegment.ttf);
+		}
+
+		h4{
+			font-family: sevenSegment;
+			font-size: 2em;
+			color: #ff0000;
+		}
+
+		.containerr{
+			position: fixed;
+			left: 91%;
+			bottom: 2%;
+			transform: translate(-50%, -50%);
 		}

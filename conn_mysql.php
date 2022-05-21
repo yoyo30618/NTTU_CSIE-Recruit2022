@@ -10,7 +10,7 @@
 	}else{
 	}
 	mysqli_query($db_link, 'SET NAMES utf8');
-	$seldb=@mysqli_select_db($db_link,"Bear-Checkin");
+	$seldb=@mysqli_select_db($db_link,"Recruit_111");
 	if(!$seldb){
 		die("資料庫選擇失敗<br>");
 	}else{

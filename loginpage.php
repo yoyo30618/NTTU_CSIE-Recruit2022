@@ -18,19 +18,50 @@
 			echo"<script language=\"JavaScript\">alert('您已經登入');location.href=\"index.php\";</script>";
 		}
 		else
-		{	
+		{
 		}
 	?>
-		<!-- Header -->
-			<header id="header">
-				<nav class="left">
-					<a href="#menu"><span>目錄</span></a>
-				</nav>
-				<a href="index.php" class="logo">National Taitung University</a>
-				<nav class="right">
-					<a href="loginpage.php" class="button alt">Log in</a>
-				</nav>
-			</header>
+	<!-- Header -->
+	<header>
+		<?php
+	if (isset($_COOKIE['GroupID']))
+	{
+		//已經登入
+		if ($_COOKIE['GroupID']==-1)
+		{
+			echo "<header id='header' style='background-color:white'>";
+		}
+		else if ($_COOKIE['GroupID']%2==1)
+		{
+			echo "<header id='header' style='background-color:#BFFFFF'>";
+		}
+		else if ($_COOKIE['GroupID']%2==0)
+		{
+			echo "<header id='header' style='background-color:#BFFFBF'>";
+		}
+	}
+	else
+	{
+		echo "<header id='header' style='background-color:white'>";
+	}
+	?>
+
+		<nav class="left">
+			<a href="#menu"><span>目錄</span></a>
+		</nav>
+		<a href="index.php" class="logo">National Taitung University</a>
+		<nav class="right">
+		<?php
+			if (isset($_COOKIE['Uname'])) {
+				//已經登入
+				echo "<a href='logout.php' class='button alt'>Log Out</a>";
+			} else {
+				echo "<a href='loginpage.php' class='button alt'>Log in</a>";
+			}
+		?>
+
+		</nav>
+	</header>
 
 		<!-- Menu -->
 			<nav id="menu">
@@ -38,23 +69,23 @@
 					<li><a href="index.php">首頁</a></li>
 					<li><a href="survey.php">問卷作答(考生使用)</a></li>
 					<?php
-						if($_COOKIE['Ulogin']=='管理員'||$_COOKIE['Ulogin']=='工作人員')
+						if(isset($_COOKIE['Ulogin'])&&($_COOKIE['Ulogin']=='管理員'||$_COOKIE['Ulogin']=='工作人員'))
 						{
 					?>
-						<li><a href="checkin.php">報到狀態(報到處使用)</a></li>
-						<li><a href="status_302.php">填答狀態(C302使用)</a></li>
-						<li><a href="status_311.php">考生狀態(C311使用)</a></li>
-						<li><a href="status_5F.php">考生狀態(五樓使用)</a></li>
-						<li><a href="status_5F_room.php">考生狀態(五樓考場外使用)</a></li>
-						<li><a href="status_506.php">考生狀態(506使用)</a></li>
+							<li><a href="checkin.php">報到狀態(報到處使用)</a></li>
+							<li><a href="status_302.php">填答狀態(C302使用)</a></li>
+							<li><a href="status_311.php">考生狀態(C311使用)</a></li>
+							<li><a href="status_5F.php">考生狀態(420使用)</a></li>
+							<li><a href="status_420.php">考生狀態(420使用)</a></li>
+							<li><a href="status_403.php">考生狀態(403使用)</a></li>
 					<?php
 						}
 					?>
 					<?php
-						if($_COOKIE['Ulogin']=='管理員')
+						if(isset($_COOKIE['Ulogin'])&&$_COOKIE['Ulogin']=='管理員')
 						{
 					?>
-							<li><a href="elements.php">資料顯示(考場內使用)</a></li>
+							<li><a href="interview.php">資料顯示((筆試考官使用))</a></li>
 					<?php
 						}
 					?>
@@ -68,7 +99,7 @@
 							echo "<li><a href='logout.php' class='button fit'>Log out</a></li>";
 						}
 						else
-						{	
+						{
 							echo "<li><a href='loginpage.php' class='button fit'>Login</a></li>";
 						}
 					?>
@@ -118,7 +149,9 @@
 				</ul>
 			</div>
 			<div class="copyright">
-				&copy; Untitled. Design 資工四甲10611128劉紀佑</a>
+				&copy; Untitled. Design 資工碩一11001903劉紀佑<br/>
+					&copy; Untitled. Design 資工二甲10911147莊冠霖<br/>
+					&copy; Untitled. Design 資工二甲10911149陳奕翔
 			</div>
 		</footer>
 		<!-- Scripts -->

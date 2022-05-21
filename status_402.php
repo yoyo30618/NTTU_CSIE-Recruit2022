@@ -24,7 +24,7 @@
 						if(isset($_COOKIE['Uname']))
 						{
 							//已經登入
-							if ($_COOKIE['Ulogin']=="管理員"||$_COOKIE['Ulogin']=="管理員2"||$_COOKIE['Ulogin']=="class1")
+							if ($_COOKIE['Ulogin']=="管理員"||$_COOKIE['Ulogin']=="管理員2"||$_COOKIE['Ulogin']=="class3")
 								echo "<a href='logout.php' class='button alt'>Log Out</a>";
 							else
 								echo"<script language=\"JavaScript\">alert('當前帳號無權訪問此頁面');location.href=\"index.php\";</script>";
@@ -68,9 +68,9 @@
 					?>
 
 					<?php
-					if ($_COOKIE['Ulogin']=='class1') {
+					if ($_COOKIE['Ulogin']=='class3') {
 					?>
-					<li><a href="status_302.php">填答狀態(C302使用)</a></li>
+					<li><a href="status_402.php">考生狀態(402使用)</a></li>
 					<?php
 				}
 					?>
@@ -96,9 +96,9 @@
 		<!-- Two -->
 			<section id="two" class="wrapper  special">
 				<div class="inner">
-					<h2>考生目前狀態(C302使用)</h2>
-					<h3>表上有多少<font style="background:#FFADAD">"紅格"</font>，教室內就該有多少人</h3>
-					<h3>填寫完畢要離開教室，務必確認他是否變<font style="background:#FFD6A5">"橘格"</font></h3>
+					<h2>考生目前狀態(402接待使用)</h2>
+					<h3><font style="background:#FFD6A5">"橘格"</font>應該正在前往420</h3>
+					<h3>引導至試場門口後請變更為<font style="background:#CAFFBF">"綠格"</font></h3>
 					<hr>
 					<h3>
 					<font style="background:#F0EFEB">他還沒來</font>
@@ -109,11 +109,11 @@
 					(進入考場面試)-><font style="background:#9BF6FF">開始面試</font>
 					(面試完畢後)-><font style="background:#A0C4FF">回饋填寫中</font>
 					(403填寫回饋並領取紀念品)-><font style="background:#FFC6FF">面試完畢</font>
-					<form method="get" style="width:100%;" action="status_302.php">
+					<form method="get" style="width:100%;" action="">
 						<?php
-							if(isset($_POST['RefreshData']))
+							if(isset($_GET['RefreshData']))
 							{
-								$SQL_DATA="SELECT * FROM `candidate` WHERE `Time`=\"".$_POST['time']."\" ORDER BY `candidate`.`Time` ASC, `candidate`.`round` ASC , `candidate`.`Number` ASC";
+								$SQL_DATA="SELECT * FROM `candidate` WHERE `Time`=\"".$_GET['time']."\" ORDER BY `candidate`.`Time` ASC, `candidate`.`round` ASC , `candidate`.`Number` ASC";
 								$DATA_result_status=mysqli_query($db_link,$SQL_DATA) or die("查詢失敗");
 							}
 						?>
@@ -194,12 +194,16 @@
 							</select>
 							<button class="button special small" style="float:left;width:20%;padding:0 0.5em" name="RefreshData">查詢</button>
 						</div>
-					</form>	
-				</h3>
+					</form>
+					</h3>
 					<hr>
 						<div class="12u">
 							<div class="table-wrapper" style="color:black;">
-								<form method="post" style="width:100%;" action="changecheckin.php">
+								<form method="post" style="width:100%;" action="statuscheck_402.php">
+									<?php if(isset($_GET['time'])){
+											echo "<input type=\"hidden\" name=\"time\" value=\"".$_GET['time']."\">";
+										}
+									?>
 									<table class="alt">
 										<thead>
 											<tr>
@@ -208,37 +212,67 @@
 												<th style="text-align: center;">梯次與(編號)</th>
 												<th style="text-align: center;">現在狀態</th>
 												<th style="text-align: center;">狀態調整</th>
-
-											</tr>
+											<!--	<th style="text-align: center;">准考證號</th>
+												<th style="text-align: center;">考生姓名</th>
+												<th style="text-align: center;">梯次與場次</th>
+												<th style="text-align: center;">現在狀態</th>
+												<th style="text-align: center;">狀態調整</th>
+										!-->	</tr>
 										</thead>
 										<tbody>
 										<?php
-											if(isset($_GET["time"])&&$_GET["time"]!="*")
-												$A_sql_status="SELECT * FROM `candidate` WHERE `Class`='T'and `Time`='".$_GET["time"]."' ORDER BY `candidate`.`Time` ASC, `candidate`.`round` ASC , `candidate`.`Number` ASC";
+											if(isset($_GET['time'])&&$_GET['time']!="*")
+												$A_sql_status="SELECT * FROM `candidate` WHERE `Class`='T' and `Time`=".$_GET['time']." ORDER BY `candidate`.`Time` ASC, `candidate`.`Round` ASC , `candidate`.`Number` ASC";
 											else
-												$A_sql_status="SELECT * FROM `candidate` WHERE `Class`='T' ORDER BY `candidate`.`Time` ASC, `candidate`.`round` ASC , `candidate`.`Number` ASC";
+												$A_sql_status="SELECT * FROM `candidate` WHERE `Class`='T' ORDER BY `candidate`.`Time` ASC, `candidate`.`Round` ASC , `candidate`.`Number` ASC";
 											$A_result_status=mysqli_query($db_link,$A_sql_status) or die("查詢失敗");
 											while ($A_rowres = mysqli_fetch_array($A_result_status, MYSQLI_BOTH))
 											{
-												if($A_rowres[6]=="302填寫中") $Color="#FFADAD";
-												else if($A_rowres[6]=="402等待面試中") $Color="#FFD6A5";
-												else if($A_rowres[6]=="402等待面試中") $Color="#FDFFB6";
-												else if($A_rowres[6]=="抵達420") $Color="#CAFFBF";
-												else if($A_rowres[6]=="開始面試") $Color="#9BF6FF";
-												else if($A_rowres[6]=="回饋填寫中") $Color="#A0C4FF";
-												else if($A_rowres[6]=="面試完畢") $Color="#FFC6FF";
-												else $Color="#F0EFEB";//他還沒來
+												if($A_rowres[6]=="302填寫中")
+													$Color="#FFADAD";
+												else if($A_rowres[6]=="402等待面試中")
+													$Color="#FFD6A5";
+												else if($A_rowres[6]=="402等待面試中")
+													$Color="#FDFFB6";
+												else if($A_rowres[6]=="抵達420")
+													$Color="#CAFFBF";
+												else if($A_rowres[6]=="開始面試")
+													$Color="#9BF6FF";
+												else if($A_rowres[6]=="回饋填寫中")
+													$Color="#A0C4FF";
+												else if($A_rowres[6]=="面試完畢")
+													$Color="#FFC6FF";
+												else//他還沒來
+													$Color="#F0EFEB";
 												?>
 												<tr>
 													<td style="background-color:<?php echo $Color?>"><?php echo $A_rowres[0]?></td>
 													<td style="background-color:<?php echo $Color?>"><?php echo $A_rowres[3]?></td>
 													<td style="background-color:<?php echo $Color?>">T<?php echo $A_rowres[5]."-".$A_rowres[7]?></td>
-													<td style="background-color:<?php echo $Color?>"><?php echo $A_rowres[6]?></td>
-													<td style="background-color:<?php echo $Color?>;height:80px;"> </td>
+													<td style="background-color:<?php echo $Color?>;height:80px;"><?php echo $A_rowres[6]?></td>
+												<?php
+													if($A_rowres[6]=="402等待面試中")
+													{
+												?>
+														<td style="background-color:<?php echo $Color?>"><button name="<?php echo $A_rowres[0]?>">確定抵達</button></td>
+												<?php
+													}
+													else if($A_rowres[6]=="抵達420")
+													{
+												?>
+														<td style="background-color:<?php echo $Color?>"><button name="<?php echo "C_".$A_rowres[0]?>" class="button special small" style="padding: 0 0.8em;">搞錯了</button></td>
+												<?php
+													}
+													else
+													{
+													?>
+														<td style="background-color:<?php echo $Color?>"> </td>
+													<?php
+													}
+												?>
 												</tr>
 											<?php
-											}
-											?>
+											}?>
 										</tbody>
 									</table>
 								</form>
@@ -270,23 +304,6 @@
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
 
+
 	</body>
-<script type="text/javascript">
-	var count = 180;
-	function countDown(){
-			
-			count -= 1;//沒執行一次，count減1
-			
-			if(count==0){
-				<?php
-					if(isset($_GET['time']))
-						echo "location.href=\"status_302.php?time=".$_GET['time']."\"";//count=0時，跳轉頁面
-					else
-						echo "location.href=\"status_302.php\"";//count=0時，跳轉頁面
-				?>
-			}
-			setTimeout("countDown()",1000);
-	}
-	countDown();
-</script>
 </html>

@@ -10,26 +10,45 @@
 	<body>
 
 		<!-- Header -->
-			<header id="header">
+		<header>
+		<?php
+		if(isset($_COOKIE['Round']))
+		{
+		//已經登入
+			if($_COOKIE['Round']%2==1)
+			{
+				echo "<header id='header' style='background-color:#BFFFFF'>";
+			}
+			else if ($_COOKIE['Round']%2==0) {
+				echo "<header id='header' style='background-color:#BFFFBF'>";
+			}
+		}
+		else
+			{
+				echo "<header id='header' style='background-color:white'>";
+			}
+		?>
+
 				<nav class="left">
 					<a href="#menu"><span>目錄</span></a>
 				</nav>
 				<a href="index.php" class="logo">National Taitung University</a>
 				<nav class="right">
 					<?php
-						header("Content-Type:text/html;charset=utf-8");
-						session_start();
+					
 						if(isset($_COOKIE['Uname']))
-						{
+						{	header("Content-Type:text/html;charset=utf-8");
+						session_start();
+						$username = $_SESSION['Uname'];
 							//已經登入
 							echo "<a href='logout.php' class='button alt'>Log Out</a>";
 						}
 						else
-						{	
+						{
 							echo "<a href='loginpage.php' class='button alt'>Log in</a>";
 						}
 					?>
-					
+
 				</nav>
 			</header>
 
@@ -37,25 +56,99 @@
 			<nav id="menu">
 				<ul class="links">
 					<li><a href="index.php">首頁</a></li>
-					<li><a href="survey.php">問卷作答(考生使用)</a></li>
 					<?php
-						if($_COOKIE['Ulogin']=='管理員'||$_COOKIE['Ulogin']=='工作人員')
+						if($_COOKIE['Ulogin']=='管理員'||$_COOKIE['Ulogin']=='管理員2'||$_COOKIE['Ulogin']=='考生')
 						{
 					?>
-						<li><a href="checkin.php">報到狀態(報到處使用)</a></li>
-						<li><a href="status_302.php">填答狀態(C302使用)</a></li>
-						<li><a href="status_311.php">考生狀態(C311使用)</a></li>
-						<li><a href="status_5F.php">考生狀態(五樓使用)</a></li>
-						<li><a href="status_5F_room.php">考生狀態(五樓考場外使用)</a></li>
-						<li><a href="status_506.php">考生狀態(506使用)</a></li>
+					<li><a href="survey.php">問卷作答(考生使用)</a></li>
+
 					<?php
 						}
 					?>
 					<?php
-						if($_COOKIE['Ulogin']=='管理員')
+						if($_COOKIE['Ulogin']=='管理員'||$_COOKIE['Ulogin']=='管理員2')
 						{
 					?>
-							<li><a href="elements.php">資料顯示(考場內使用)</a></li>
+						<li><a href="checkin.php">報到狀態(報到處使用)</a></li>
+						<li><a href="status_302.php">填答狀態(C302使用)</a></li>
+					<!--	<li><a href="status_311.php">考生狀態(C311使用)</a></li> -->
+						<li><a href="status_402.php">考生狀態(C402使用)</a></li>
+						<li><a href="status_420.php">考生狀態(C420使用)</a></li>
+						<li><a href="status_403.php">考生狀態(C403使用)</a></li>
+						<li><a href="interview.php">面試分數(面試考官使用)</a></li>
+						<li><a href="elements.php">資料顯示(筆試考官使用)</a></li>
+
+					<?php
+						}
+					?>
+
+					<?php
+					if ($_COOKIE['Ulogin']=='class0') {
+					?>
+					<li><a href="checkin.php">報到狀態(報到處使用)</a></li>
+					<?php
+				}
+					?>
+
+
+					<?php
+					if ($_COOKIE['Ulogin']=='class1') {
+					?>
+					<li><a href="status_302.php">填答狀態(C302使用)</a></li>
+					<?php
+				}
+					?>
+
+					<?php
+					if ($_COOKIE['Ulogin']=='class2') {
+					?>
+				<!--	<li><a href="status_311.php">考生狀態(C311使用)</a></li> -->
+					<?php
+				}
+					?>
+
+					<?php
+					if ($_COOKIE['Ulogin']=='class5') {
+					?>
+					<li><a href="status_403.php">考生狀態(403使用)</a></li>
+					<?php
+				}
+					?>
+
+
+					<?php
+					if ($_COOKIE['Ulogin']=='class3') {
+					?>
+					<li><a href="status_402.php">考生狀態(402使用)</a></li>
+					<?php
+				}
+					?>
+
+					<?php
+					if ($_COOKIE['Ulogin']=='class4') {
+					?>
+					<li><a href="status_420.php">考生狀態(420使用)</a></li>
+					<?php
+				}
+					?>
+
+
+					<?php
+						if($_COOKIE['Ulogin']=='口試')
+						{
+					?>
+							<li><a href="interview.php">面試分數(面試考官使用)</a></li>
+
+					<?php
+						}
+					?>
+
+					<?php
+						if($_COOKIE['Ulogin']=='書審'||$_COOKIE['Ulogin']=='口試')
+						{
+					?>
+							<li><a href="elements.php">資料顯示(筆試考官使用)</a></li>
+							<li><a href="checkin.php">報到狀態(報到處使用)</a></li>
 					<?php
 						}
 					?>
@@ -69,7 +162,7 @@
 							echo "<li><a href='logout.php' class='button fit'>Log out</a></li>";
 						}
 						else
-						{	
+						{
 							echo "<li><a href='loginpage.php' class='button fit'>Login</a></li>";
 						}
 					?>
@@ -80,8 +173,23 @@
 		<!-- Banner -->
 			<section id="banner">
 				<div class="content">
-					<h1>國立臺東大學資訊工程學系歡迎您</h1>
-					<p>請先登入系統並作答以利面試順利進行，謝謝</p>
+
+				<div style="margin-right: 45%;color:red;font-size:30px;">
+				<?php
+					if(isset($_SESSION['Uname']))
+						echo $_SESSION['Uname'];
+				?>
+				</div>
+
+				<h1>
+
+				<?php
+					if(isset($_SESSION['wname']))
+						echo $_SESSION['wname'];
+				?>
+					國立臺東大學資訊工程學系歡迎您</h1>
+
+					<p><span style="background-color:#F0F0F0"><b><font style="color:#B766AD;">&nbsp;&nbsp;請依指示登入系統後作答，預祝面試順利&nbsp;&nbsp;</font></b></span></p>
 					<ul class="actions">
 						<li><a href="survey.php" class="button scrolly">Get Started</a></li>
 					</ul>
@@ -98,7 +206,7 @@
 						</div>
 						<div>
 							<h3>面試流程2</h3>
-							<p>302填寫完後至311休息等待面試</p>
+							<p>302填寫完後至420等待面試</p>
 						</div>
 					</div>
 					<div class="flex-item image fit round">
@@ -107,7 +215,7 @@
 					<div class="flex-item right">
 						<div>
 							<h3>面試流程3</h3>
-							<p>到五樓開始面試，結束後至506填寫回饋</p>
+							<p>到420開始面試，結束後至403填寫回饋</p>
 						</div>
 						<div>
 							<h3>NTTU-CSIE</h3>
@@ -123,9 +231,9 @@
 					<h2>重點項目提醒</h2>
 					<figure>
 					    面試別緊張<br />
-					    4/26 放榜<br />
-					    5/13-14 記得登記志願序<br />
-					    5/20 期待能到你想到的學系<br />
+					    5/30 放榜<br />
+					    6/9-10 記得登記志願序<br />
+					    6/15 期待能到你想到的學系<br />
 					    <!--東晨米糕好吃喔<br><br><br>
 					    <footer>
 					        <cite class="author">東晨米糕</cite>
@@ -134,6 +242,7 @@
 						-->
 					</figure>
 				</div>
+
 			</section>
 		<!-- Footer -->
 			<footer id="footer">
@@ -146,7 +255,10 @@
 					</ul>
 				</div>
 				<div class="copyright">
-					&copy; Untitled. Design 資工四甲10611128劉紀佑</a>
+					&copy; Untitled. Design 資工碩一11001903劉紀佑<br/>
+					&copy; Untitled. Design 資工二甲10911147莊冠霖<br/>
+					&copy; Untitled. Design 資工二甲10911149陳奕翔
+
 				</div>
 			</footer>
 
