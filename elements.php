@@ -211,14 +211,14 @@
 													if($DATA_rowres[8]=="1")
 													{
 												?>
-												<td style="background-color:<?php echo $Color?>"><font color = "brown"><?php echo "1. 軟體設計與應用<br>"?></font><?php echo $DATA_rowres[9] ?></td>
+												<td style="background-color:<?php echo $Color?>"><font color = "brown"><?php echo "1.東大資工的課程地圖中，系上課程可以分為「軟體設計與應用」、「嵌入式系統與應用」、「網路通訊與應用」三大模組，請問您對哪一個模組最有興趣?為甚麼?<br>"?></font>軟體設計與應用<br><?php echo $DATA_rowres[9] ?></td>
 
 												<?php
 													}
 													else if($DATA_rowres[8]=="2")
 													{
 												?>
-												<td style="background-color:<?php echo $Color?>"><font color = "brown"><?php echo "1. 嵌入式系統與應用<br>"?></font><?php echo $DATA_rowres[9] ?></td>
+												<td style="background-color:<?php echo $Color?>"><font color = "brown"><?php echo "1.東大資工的課程地圖中，系上課程可以分為「軟體設計與應用」、「嵌入式系統與應用」、「網路通訊與應用」三大模組，請問您對哪一個模組最有興趣?為甚麼?<br>"?></font>嵌入式系統與應用<br><?php echo $DATA_rowres[9] ?></td>
 
 												<?php
 													}
@@ -226,7 +226,7 @@
 													{
 												?>
 
-												<td style="background-color:<?php echo $Color?>"><font color = "brown"><?php echo "1. 網路通訊與應用<br>"?></font><?php echo $DATA_rowres[9] ?></td>
+												<td style="background-color:<?php echo $Color?>"><font color = "brown"><?php echo "1.東大資工的課程地圖中，系上課程可以分為「軟體設計與應用」、「嵌入式系統與應用」、「網路通訊與應用」三大模組，請問您對哪一個模組最有興趣?為甚麼?<br>"?></font>網路通訊與應用<br><?php echo $DATA_rowres[9] ?></td>
 
 												<?php
 
@@ -235,7 +235,7 @@
 													{
 														?>
 
-															<td style="background-color:<?php echo $Color?>"></td>
+															<td style="background-color:<?php echo $Color?>"><font color="brown">1.東大資工的課程地圖中，系上課程可以分為「軟體設計與應用」、「嵌入式系統與應用」、「網路通訊與應用」三大模組，請問您對哪一個模組最有興趣?為甚麼?</font></td>
 													<?php
 													}
 													?>
@@ -325,7 +325,7 @@
 
 													</tr>
 													<tr>
-													<td style="background-color:<?php echo $Color?>"><font color="brown">5. 請用一句話形容自己。<br></font><?php echo $DATA_rowres[41] ?></td>
+													<td style="background-color:<?php echo $Color?>"><font color="brown">5. 請用一句話形容自己。<br></font><?php echo $DATA_rowres[13] ?></td>
 													</tr>
 
 <!--													<th style="text-align: center;width:20%;"><div style="overflow:auto;width:100%;height:120px;">分數註記</div></th>
